@@ -34,4 +34,17 @@ app.post("/", (req, res) => {
     res.send({ message: "category added succesfully" })
 })
 
+app.patch("/:id", (req, res) => {
+    let categoryId = req.params.id
+    let data = req.body
+    console.log(categoryId);
+    console.log(data);
+    res.send({ message: "category updated succesfully" })
+})
+
+app.delete("/:id", (req, res) => {
+    let categoryId = req.params.id
+    console.log(categoryId);
+    res.send({ message: "category deleted succesfully" })
+})
 module.exports = app
