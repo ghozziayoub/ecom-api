@@ -12,6 +12,8 @@ app.use(express.json())
 
 // ROUTING
 app.use("/categories", categoriesController)
+app.use("/products", productsController)
+
 
 // RUN SERVER
 app.listen(port, () => console.log(`🟢 server started on port ${port}`))
