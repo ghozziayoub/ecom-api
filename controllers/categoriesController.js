@@ -47,4 +47,5 @@ app.delete("/:id", (req, res) => {
     console.log(categoryId);
     res.send({ message: "category deleted succesfully" })
 })
+
 module.exports = app
