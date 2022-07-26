@@ -4,7 +4,11 @@ const express = require("express")
 // IMPORT CONTROLLERS
 const categoriesController = require("./controllers/categoriesController")
 const productsController = require("./controllers/productsController")
-const SubcategoriesController = require("./controllers/SubcategoriesController")
+const subcategoriesController = require("./controllers/SubcategoriesController")
+
+const productsController = require("./controllers/productsController")
+
+const ordersController = require("./controllers/ordersController")
 
 const app = express()
 
@@ -15,7 +19,9 @@ app.use(express.json())
 // ROUTING
 app.use("/categories", categoriesController)
 app.use("/products", productsController)
-app.use("subcategories" , SubcategoriesController)
+app.use("/orders", ordersController)
+app.use("/subcategories" , subcategoriesController)
+
 
 
 // RUN SERVER
