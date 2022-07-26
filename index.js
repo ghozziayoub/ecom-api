@@ -3,6 +3,8 @@ const express = require("express")
 
 // IMPORT CONTROLLERS
 const categoriesController = require("./controllers/categoriesController")
+const productsController = require("./controllers/productsController")
+const subcategoriesController = require("./controllers/SubcategoriesController")
 
 const productsController = require("./controllers/productsController")
 
@@ -18,6 +20,8 @@ app.use(express.json())
 app.use("/categories", categoriesController)
 app.use("/products", productsController)
 app.use("/orders", ordersController)
+app.use("/subcategories" , subcategoriesController)
+
 
 
 // RUN SERVER
