@@ -21,14 +21,20 @@ app.get("/:id", (req, res) => {
 
     let categoryId = req.params.id
 
-    let categories = [
-        { id: 1, name: "beauté" },
-        { id: 2, name: "vetement" }
-    ]
+    Category.findOne({ _id: categoryId })
+        .then((category) => {
 
-    let category = categories.find(c => c.id == categoryId)
+            if (category) {
+                res.status(200).send(category)
+            }
+            else {
+                res.status(404).send({ message: "category not found !" })
+            }
 
-    res.send(category)
+        })
+        .catch(() => {
+            res.status(400).send({ message: "error fetching catgeory" })
+        })
 
 })
 
@@ -53,15 +59,42 @@ app.post("/", (req, res) => {
 app.patch("/:id", (req, res) => {
     let categoryId = req.params.id
     let data = req.body
-    console.log(categoryId);
-    console.log(data);
-    res.send({ message: "category updated succesfully" })
+    Category.findOneAndUpdate({ _id: categoryId }, data)
+        .then((category) => {
+
+            if (category) {
+                res.status(200).send({ message: "category updated succesfully" })
+            }
+            else {
+                res.status(404).send({ message: "category not found !" })
+            }
+
+        })
+        .catch(() => {
+            res.status(400).send({ message: "error fetching catgeory" })
+        })
+
 })
 
 app.delete("/:id", (req, res) => {
+
     let categoryId = req.params.id
-    console.log(categoryId);
-    res.send({ message: "category deleted succesfully" })
+
+    Category.findOneAndDelete({ _id: categoryId })
+        .then((category) => {
+
+            if (category) {
+                res.status(200).send({ message: "category deleted succesfully" })
+            }
+            else {
+                res.status(404).send({ message: "category not found !" })
+            }
+
+        })
+        .catch(() => {
+            res.status(400).send({ message: "error fetching catgeory" })
+        })
+
 })
 
 module.exports = app
