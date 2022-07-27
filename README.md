@@ -55,3 +55,21 @@ app.post("/test/:name", (req, res) => {
 -----
 mongoose  =>  ODM => Object Document Mapping => MongodB
 sequelize =>  ORM => Object Relational Mapping 
+------
+app.post("/", (req, res) => {
+    let data = req.body
+
+    let category = new Category({
+        name: data.name
+    })
+
+    category
+        .save()
+        .then(() => {
+            res.status(201).send({ message: "category added succesfully" })
+        })
+        .catch(() => {
+            res.status(400).send({ message: "category not saved " })
+        })
+
+})
