@@ -14,7 +14,6 @@ app.get("/", (req, res) => {
 })
 
 app.get("/:id", (req, res) => {
-
     let categoryId = req.params.id
 
     let categories = [

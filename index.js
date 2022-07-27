@@ -5,9 +5,9 @@ const express = require("express")
 const categoriesController = require("./controllers/categoriesController")
 const productsController = require("./controllers/productsController")
 const subcategoriesController = require("./controllers/subcategoriesController")
-const productsController = require("./controllers/productsController")
 const ordersController = require("./controllers/ordersController")
 const messagesController = require("./controllers/messagesController")
+require('./config/db')
 
 const app = express()
 
