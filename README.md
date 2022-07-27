@@ -51,3 +51,7 @@ app.post("/test/:name", (req, res) => {
     res.send(categories)
 
 })
+
+-----
+mongoose  =>  ODM => Object Document Mapping => MongodB
+sequelize =>  ORM => Object Relational Mapping 

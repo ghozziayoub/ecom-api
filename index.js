@@ -9,6 +9,9 @@ const ordersController = require("./controllers/ordersController")
 const messagesController = require("./controllers/messagesController")
 require('./config/db')
 
+// IMPORT DB
+require("./config/db")
+
 const app = express()
 
 const port = 3001

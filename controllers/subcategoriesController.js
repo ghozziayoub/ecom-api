@@ -48,4 +48,5 @@ app.delete("/:id", (req, res) => {
     console.log(SubcategoryId);
     res.send({ message: "Subcategory deleted succesfully" })
 })
+
 module.exports = app
