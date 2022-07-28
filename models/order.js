@@ -2,24 +2,20 @@ const mongoose = require("mongoose")
 
 const orderSchema = new mongoose.Schema(
     {
-        price: {
-            type: Number,
+        address: {
+            type: String,
             required: true
         },
-        ordernumber:{
-            type: Number,
-            required: true,
-            unique: true
-        },
+        products:[mongoose.Schema.Types.Mixed],
         idUser: {
             type: String,
             required: true
         },
-        name: {
-            type: String,
-            required: true,
-            unique: true
+        totalPrice: {
+            type: Number,
+            required: true
         }
+
     }
 )
 
