@@ -2,25 +2,21 @@ const mongoose = require("mongoose")
 
 const messageSchema = new mongoose.Schema(
     {
-        firstName: {
+        firstname: {
             type: String,
-            required: true,
-            unique: true
+            required: true
         },
-        lastName: {
+        lastname: {
             type: String,
-            required: true,
-            unique: true
+            required: true
         },
         email: {
             type: String,
-            required: true,
-            unique: true
+            required: true
         },
         message: {
             type: String,
-            required: true,
-            unique: true
+            required: true
         }
     }
 )
