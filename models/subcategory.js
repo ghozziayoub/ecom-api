@@ -9,8 +9,7 @@ const subCategorySchema = new mongoose.Schema(
         },
         idCategory: {
             type: Number,
-            required: true,
-            unique: true
+            required: true
         }
     }
 )
