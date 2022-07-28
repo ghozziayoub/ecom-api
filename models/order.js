@@ -2,21 +2,18 @@ const mongoose = require("mongoose")
 
 const orderSchema = new mongoose.Schema(
     {
-        idCategory:{
-            type: String,
+        price: {
+            type: Number,
+            required: true
+        },
+        ordernumber:{
+            type: Number,
             required: true,
-            unique:true
-
+            unique: true
         },
         idUser: {
             type: String,
-            required: true,
-            unique: true
-        },
-        idProduct: {
-            type: String,
-            required: true,
-            unique: true
+            required: true
         },
         name: {
             type: String,
