@@ -1,13 +1,13 @@
 const express = require("express")
 
-const subCategory = require("./../models/category")
+const Subcategory = require("./../models/subcategories")
 
 const app = express()
 
 app.get("/", async (req, res) => {
 
     try {
-        let subcategories = await subCategory.find()
+        let subcategories = await Subcategory.find()
         res.status(200).send(subcategories)
     } catch (e) {
         res.status(400).send({ message: "error fetching subcategories" })
@@ -20,7 +20,7 @@ app.get("/:id", async (req, res) => {
     try {
 
         let subcategoryId = req.params.id
-        let subcategory = await subCategory.findOne({ _id: subcategoryId })
+        let subcategory = await Subcategory.findOne({ _id: subcategoryId })
 
         if (subcategory) {
             res.status(200).send(subcategory)
@@ -40,8 +40,9 @@ app.post("/", async (req, res) => {
     try {
         let data = req.body
 
-        let subcategory = new subCategory({
-            name: data.name
+        let subcategory = new Subcategory({
+            name: data.name,
+            idCategory: data.idCategory
         })
 
         await subcategory.save()
@@ -58,7 +59,7 @@ app.patch("/:id", async (req, res) => {
     try {
         let subcategoryId = req.params.id
         let data = req.body
-        let subcategory = await subCategory.findOneAndUpdate({ _id: subcategoryId }, data)
+        let subcategory = await Subcategory.findOneAndUpdate({ _id: subcategoryId }, data)
 
         if (subcategory) {
             res.status(200).send({ message: "subcategory updated succesfully" })
@@ -78,7 +79,7 @@ app.delete("/:id", async (req, res) => {
     try {
         let subcategoryId = req.params.id
 
-        let subcategory = await subCategory.findOneAndDelete({ _id: subcategoryId })
+        let subcategory = await Subcategory.findOneAndDelete({ _id: subcategoryId })
 
         if (subcategory) {
             res.status(200).send({ message: "subcategory deleted succesfully" })
