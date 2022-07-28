@@ -15,7 +15,7 @@ const clientSchema = new mongoose.Schema(
             required: true,
             unique: true
         },
-        adresse: {
+        address: {
             type: String,
             required: true
         },
