@@ -17,6 +17,10 @@ const messageSchema = new mongoose.Schema(
         message: {
             type: String,
             required: true
+        },
+        subject: {
+            type: String,
+            required: true
         }
     }
 )
