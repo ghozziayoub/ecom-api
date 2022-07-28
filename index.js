@@ -10,7 +10,6 @@ const messagesController = require("./controllers/messagesController")
 const clientController = require("./controllers/clientController")
 const sellersController = require("./controllers/sellersController")
 
-
 // IMPORT DB
 require("./config/db")
 
@@ -25,7 +24,7 @@ app.use("/categories", categoriesController)
 app.use("/products", productsController)
 app.use("/orders", ordersController)
 app.use("/subcategories", subcategoriesController)
-app.use("/messagesController", messagesController)
+app.use("/messages", messagesController)
 app.use("/clients", clientController)
 app.use("/sellers", sellersController)
 

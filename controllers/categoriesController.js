@@ -4,93 +4,63 @@ const Category = require("./../models/category")
 
 const app = express()
 
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
 
-    try {
-        let categories = await Category.find()
-        res.status(200).send(categories)
-    } catch (e) {
-        res.status(400).send({ message: "error fetching categories" })
-    }
-
-})
-
-app.get("/:id", async (req, res) => {
-
-    try {
-
-        let categoryId = req.params.id
-        let category = await Category.findOne({ _id: categoryId })
-
-        if (category) {
-            res.status(200).send(category)
-        }
-        else {
-            res.status(404).send({ message: "category not found !" })
-        }
-
-    } catch (error) {
-        res.status(400).send({ message: "error fetching catgeory" })
-    }
-
-})
-
-app.post("/", async (req, res) => {
-
-    try {
-        let data = req.body
-
-        let category = new Category({
-            name: data.name
+    Category
+        .find()
+        .then((categories) => {
+            res.status(200).send(categories)
+        })
+        .catch(() => {
+            res.status(400).send({ message: "error fetching categories" })
         })
 
-        await category.save()
+})
 
-        res.status(201).send({ message: "category added succesfully" })
+app.get("/:id", (req, res) => {
+    let categoryId = req.params.id
 
-    } catch (e) {
-        res.status(400).send({ message: "category not saved " })
-    }
+    let categories = [
+        { id: 1, name: "beauté" },
+        { id: 2, name: "vetement" }
+    ]
+
+    let category = categories.find(c => c.id == categoryId)
+
+    res.send(category)
 
 })
 
-app.patch("/:id", async (req, res) => {
-    try {
-        let categoryId = req.params.id
-        let data = req.body
-        let category = await Category.findOneAndUpdate({ _id: categoryId }, data)
+app.post("/", (req, res) => {
+    let data = req.body
 
-        if (category) {
-            res.status(200).send({ message: "category updated succesfully" })
-        }
-        else {
-            res.status(404).send({ message: "category not found !" })
-        }
+    let category = new Category({
+        name: data.name
+    })
 
-    } catch (error) {
-        res.status(400).send({ message: "error fetching catgeory" })
-    }
-
+    category
+        .save()
+        .then(() => {
+            res.status(201).send({ message: "category added succesfully" })
+        })
+        .catch(() => {
+            res.status(400).send({ message: "category not saved " })
+        })
 
 })
 
-app.delete("/:id", async (req, res) => {
-    try {
-        let categoryId = req.params.id
+app.patch("/:id", (req, res) => {
+    let categoryId = req.params.id
+    let data = req.body
+    console.log(categoryId);
+    console.log(data);
+    res.send({ message: "category updated succesfully" })
+})
 
-        let category = await Category.findOneAndDelete({ _id: categoryId })
-
-        if (category) {
-            res.status(200).send({ message: "category deleted succesfully" })
-        }
-        else {
-            res.status(404).send({ message: "category not found !" })
-        }
-
-    } catch (error) {
-        res.status(400).send({ message: "error fetching catgeory" })
-    }
-
+app.delete("/:id", (req, res) => {
+    let categoryId = req.params.id
+    console.log(categoryId);
+    res.send({ message: "category deleted succesfully" })
 })
 
 module.exports = app
