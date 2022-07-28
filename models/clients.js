@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const clientSchema = new mongoose.Schema(
     {
-        name: {
+        firstname: {
             type: String,
             required: true
         },
@@ -12,7 +12,8 @@ const clientSchema = new mongoose.Schema(
         },
         phone: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         adresse: {
             type: String,
@@ -21,6 +22,11 @@ const clientSchema = new mongoose.Schema(
         email: {
             type: String,
             required: true,
+            unique:true
+        },
+        password: {
+            type: String,
+            required: true
         }
     }
 )
