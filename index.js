@@ -8,6 +8,8 @@ const subcategoriesController = require("./controllers/subcategoriesController")
 const ordersController = require("./controllers/ordersController")
 const messagesController = require("./controllers/messagesController")
 const clientController = require("./controllers/clientController")
+const sellersController = require("./controllers/sellersController")
+
 
 // IMPORT DB
 require("./config/db")
@@ -25,6 +27,7 @@ app.use("/orders", ordersController)
 app.use("/subcategories", subcategoriesController)
 app.use("/messagesController", messagesController)
 app.use("/clients", clientController)
+app.use("/sellers", sellersController)
 
 // RUN SERVER
 app.listen(port, () => console.log(`🟢 server started on port ${port}`))
