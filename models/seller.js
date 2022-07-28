@@ -30,7 +30,8 @@ const sellerSchema = new mongoose.Schema(
         },
         shopName: {
             type: String,
-            required: true
+            required: true,
+            unique:true
         },
          logoShop: {
             type: String,
