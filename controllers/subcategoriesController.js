@@ -1,52 +1,97 @@
 const express = require("express")
 
+const SubCategory = require("./../models/subcategories")
+
 const app = express()
 
-app.get("/", (req, res) => {
-    let Subcategories = [
-        {id:1,name:"Robes"},
-        {id:2,name:"tee-shirts"},
-        {id:3,name:"Chemises"},
-        {id:4,name:"jeans"},
-        {id:5,name:"jupes"}
-        
-    ]
-    res.send(Subcategories)
-})
+app.get("/", async (req, res) => {
 
-app.get("/:id", (req, res) => {
-    let SubcategoryId = req.params.id
-
-    let Subcategories = [
-        {id:1,name:"Robes"},
-        {id:2,name:"tee-shirts"},
-        {id:3,name:"Chemises"},
-        {id:4,name:"jeans"},
-        {id:5,name:"jupes"}
-    ]
-    let Subcategory = Subcategories.find(c => c.id == SubcategoryId)
-    res.send(Subcategory)
-})
-
-app.post("/",(req,res)=>{
-    let data= req.body
-    console.log(data);
-    res.send({message:"Subcategory added succesfully"})
-})
-
-app.patch("/:id", (req, res) =>{
-    let SubcategoryId = req.params.id
-    let data = req.body
-    console.log(SubcategoryId);
-    console.log(data);
-    res.send({message:"Subcategory updated succesfully"})
+    try {
+        let subcategories = await SubCategory.find()
+        res.status(200).send(subcategories)
+    } catch (e) {
+        res.status(400).send({ message: "error fetching subcategories" })
+    }
 
 })
 
-app.delete("/:id", (req, res) => {
-    let SubcategoryId = req.params.id
-    console.log(SubcategoryId);
-    res.send({ message: "Subcategory deleted succesfully" })
+app.get("/:id", async (req, res) => {
+
+    try {
+
+        let subcategoryId = req.params.id
+        let subcategory = await SubCategory.findOne({ _id: subcategoryId })
+
+        if (subcategory) {
+            res.status(200).send(subcategory)
+        }
+        else {
+            res.status(404).send({ message: "subcategory not found !" })
+        }
+
+    } catch (error) {
+        res.status(400).send({ message: "error fetching subcatgeory" })
+    }
+
+})
+
+app.post("/", async (req, res) => {
+
+    try {
+        let data = req.body
+
+        let subcategory = new SubCategory({
+            name: data.name,
+            idCategory: data.idCategory
+        })
+
+        await subcategory.save()
+
+        res.status(201).send({ message: "subcategory added succesfully" })
+
+    } catch (e) {
+        res.status(400).send({ message: "subcategory not saved " })
+    }
+
+})
+
+app.patch("/:id", async (req, res) => {
+    try {
+        let subcategoryId = req.params.id
+        let data = req.body
+        let subcategory = await SubCategory.findOneAndUpdate({ _id: subcategoryId }, data)
+
+        if (subcategory) {
+            res.status(200).send({ message: "subcategory updated succesfully" })
+        }
+        else {
+            res.status(404).send({ message: "subcategory not found !" })
+        }
+
+    } catch (error) {
+        res.status(400).send({ message: "error fetching subcatgeory" })
+    }
+
+
+})
+
+app.delete("/:id", async (req, res) => {
+    try {
+        let subcategoryId = req.params.id
+
+        let subcategory = await SubCategory.findOneAndDelete({ _id: subcategoryId })
+
+        if (subcategory) {
+            res.status(200).send({ message: "subcategory deleted succesfully" })
+        }
+        else {
+            res.status(404).send({ message: "subcategory not found !" })
+        }
+
+    } catch (error) {
+        res.status(400).send({ message: "error fetching subcatgeory" })
+    }
+
 })
 
 module.exports = app
