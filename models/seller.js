@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const sellerSchema = new mongoose.Schema(
     {
-        name: {
+        firstname: {
             type: String,
             required: true
         },
@@ -12,13 +12,19 @@ const sellerSchema = new mongoose.Schema(
         },
         phone: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         adresse: {
             type: String,
             required: true
         },
         email: {
+            type: String,
+            required: true,
+            unique:true
+        },
+        password: {
             type: String,
             required: true
         },
