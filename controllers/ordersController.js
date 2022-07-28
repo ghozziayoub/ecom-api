@@ -71,7 +71,7 @@ app.patch("/:id", async (req, res) => {
         }
 
     } catch (error) {
-        res.status(400).send({ message: "error fetching catgeory" })
+        res.status(400).send({ message: "error fetching order" })
     }
 
 
@@ -91,7 +91,7 @@ app.delete("/:id", async (req, res) => {
         }
 
     } catch (error) {
-        res.status(400).send({ message: "error fetching catgeory" })
+        res.status(400).send({ message: "error fetching order" })
     }
 
 })
