@@ -73,3 +73,11 @@ app.post("/", (req, res) => {
         })
 
 })
+-----
+    SQL | NoSQL
+table   |   collection
+ligne   |   document
+cols    |   attributs
+
+
+
