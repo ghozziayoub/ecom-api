@@ -1,5 +1,6 @@
 // IMPORT PACKAGES
 const express = require("express")
+const cors = require("cors")
 
 // IMPORT CONTROLLERS
 const categoriesController = require("./controllers/categoriesController")
@@ -17,6 +18,7 @@ const app = express()
 
 const port = 3001
 
+app.use(cors())
 app.use(express.json())
 
 // ROUTING

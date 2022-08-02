@@ -1,6 +1,6 @@
 const express = require("express")
 
-const SubCategory = require("./../models/subcategories")
+const SubCategory = require("./../models/subcategory")
 
 const app = express()
 
