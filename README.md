@@ -81,3 +81,10 @@ cols    |   attributs
 
 
 
+---------
+en cas ou bch nebdew f nouvelle fonctionalité :
+feature/controller-messages
+en cas ou bch na3mlou mise à jour 3la fonctionalité
+update/controller-messages
+en cas ou 3anna bug bch nsall7ouha f fonctionalité
+fix/controller-messages

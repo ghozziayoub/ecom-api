@@ -1,39 +1,98 @@
 const express = require("express")
 
+const Order = require("./../models/order")
+
 const app = express()
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
 
-    let products = [
-        { id: 1, name: "T-shirt", price: "119.000" },
-        { id: 2, name: "Nail polish", price: "7.000" },
-        { id: 3, name: "Parfume", price: "439.000" },
-        { id: 4, name: "Sun-screen", price: "89.900" },
-        { id: 5, name: "Swimwear", price: "157.900" }
-
-    ]
-
-
-    res.send(products)
+    try {
+        let orders = await Order.find()
+        res.status(200).send(orders)
+    } catch (e) {
+        res.status(400).send({ message: "error fetching orders" })
+    }
 
 })
 
-app.get("/:id", (req, res) => {
+app.get("/:id", async (req, res) => {
 
-    let productId = req.params.id
+    try {
 
-    let products = [
-        { id: 1, name: "T-shirt", price: "119.000" },
-        { id: 2, name: "Nail polish", price: "7.000" },
-        { id: 3, name: "Parfume", price: "439.000" },
-        { id: 4, name: "Sun-screen", price: "89.900" },
-        { id: 5, name: "Swimwear", price: "157.900" }
+        let orderId = req.params.id
+        let order = await Order.findOne({ _id: orderId })
 
-    ]
+        if (order) {
+            res.status(200).send(order)
+        }
+        else {
+            res.status(404).send({ message: "order not found !" })
+        }
 
-    let product = products.find(c => c.id == productId)
+    } catch (error) {
+        res.status(400).send({ message: "error fetching order" })
+    }
 
-    res.send(`The ${product.name} is added to cart with a price : ${product.price}DT`)
+})
+
+app.post("/", async (req, res) => {
+
+    try {
+        let data = req.body
+
+        let order = new Order({
+            address: data.address,
+            products: data.products,
+            idUser: data.idUser,
+            totalPrice: data.totalPrice
+        })
+
+        await order.save()
+
+        res.status(201).send({ message: "order added succesfully" })
+
+    } catch (e) {
+        res.status(400).send({ message: "order not saved " })
+    }
+
+})
+
+app.patch("/:id", async (req, res) => {
+    try {
+        let orderId = req.params.id
+        let data = req.body
+        let order = await Order.findOneAndUpdate({ _id: orderId }, data)
+
+        if (order) {
+            res.status(200).send({ message: "order updated succesfully" })
+        }
+        else {
+            res.status(404).send({ message: "order not found !" })
+        }
+
+    } catch (error) {
+        res.status(400).send({ message: "error fetching order" })
+    }
+
+
+})
+
+app.delete("/:id", async (req, res) => {
+    try {
+        let orderId = req.params.id
+
+        let order = await Order.findOneAndDelete({ _id: orderId })
+
+        if (order) {
+            res.status(200).send({ message: "order deleted succesfully" })
+        }
+        else {
+            res.status(404).send({ message: "order not found !" })
+        }
+
+    } catch (error) {
+        res.status(400).send({ message: "error fetching order" })
+    }
 
 })
 
