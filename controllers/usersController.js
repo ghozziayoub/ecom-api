@@ -1,5 +1,6 @@
 const express = require("express")
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
 
 const User = require("../models/user")
 
@@ -61,6 +62,30 @@ app.post("/", async (req, res) => {
         res.status(400).send({ message: "user not saved " })
     }
 
+})
+
+app.post("/login", async (req, res) => {
+    try {
+
+        let data = req.body
+
+        let user = await User.findOne({ email: data.email })
+
+        if (user) {
+            let compare = bcrypt.compareSync(data.password, user.password)
+            if (compare) {
+                let myToken = jwt.sign({ role: user.role, id: user._id }, "SECRET-KEY")
+                res.status(200).send({ token: myToken })
+            } else {
+                res.status(404).send({ message: "user not found !" })
+            }
+        } else {
+            res.status(404).send({ message: "user not found !" })
+        }
+
+    } catch (error) {
+        res.status(400).send({ message: "error fetching user" })
+    }
 })
 
 app.patch("/:id", async (req, res) => {
