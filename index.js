@@ -8,7 +8,7 @@ const productsController = require("./controllers/productsController")
 const subcategoriesController = require("./controllers/subcategoriesController")
 const ordersController = require("./controllers/ordersController")
 const messagesController = require("./controllers/messagesController")
-const clientController = require("./controllers/clientController")
+const usersController = require("./controllers/usersController")
 const sellersController = require("./controllers/sellersController")
 
 // IMPORT DB
@@ -27,7 +27,7 @@ app.use("/products", productsController)
 app.use("/orders", ordersController)
 app.use("/subcategories", subcategoriesController)
 app.use("/messages", messagesController)
-app.use("/clients", clientController)
+app.use("/users", usersController)
 app.use("/sellers", sellersController)
 
 // RUN SERVER
