@@ -1,6 +1,7 @@
 const express = require("express")
 
 const SubCategory = require("./../models/subcategory")
+const Category = require("./../models/category")
 
 const app = express()
 
@@ -8,7 +9,20 @@ app.get("/", async (req, res) => {
 
     try {
         let subcategories = await SubCategory.find()
-        res.status(200).send(subcategories)
+        let allSubCategories = []
+
+        for (let i = 0; i < subcategories.length; i++) {
+            let category = await Category.findOne({ _id: subcategories[i].idCategory })
+            // subcategories[i] + category
+            let subCategory = { 
+                _id:subcategories[i]._id,
+                name:subcategories[i].name,
+                category:category
+            }
+            allSubCategories.push(subCategory)
+        }
+
+        res.status(200).send(allSubCategories)
     } catch (e) {
         res.status(400).send({ message: "error fetching subcategories" })
     }

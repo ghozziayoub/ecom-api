@@ -8,7 +8,7 @@ const subCategorySchema = new mongoose.Schema(
             unique: true
         },
         idCategory: {
-            type: Number,
+            type: String,
             required: true
         }
     }
